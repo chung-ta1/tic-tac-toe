@@ -37,7 +37,7 @@ Since this is a full-stack application, you'll need to create two separate servi
 4. Configure the service:
    - **Name:** tic-tac-toe-frontend
    - **Environment:** Docker
-   - **Dockerfile Path:** `Dockerfile.frontend`
+   - **Dockerfile Path:** `Dockerfile.frontend.render`
    - **Docker Build Context Directory:** `.` (root directory)
    - **Port:** 80
 
@@ -67,7 +67,15 @@ If you prefer to use the Dockerfiles in the subdirectories, you can:
 - **Dockerfile Path:** `frontend/Dockerfile`
 - **Docker Build Context Directory:** `frontend`
 
+## Important Notes
+
+### Frontend Deployment
+The frontend uses a special `Dockerfile.frontend.render` that removes the nginx proxy configuration since on Render, the frontend and backend are deployed as separate services with their own URLs. The React app will make API calls directly to the backend URL specified in `REACT_APP_API_URL`.
+
 ## Troubleshooting
+
+### "nginx: [emerg] host not found in upstream "backend""
+This error occurs when using the standard Dockerfile that expects Docker Compose networking. Use `Dockerfile.frontend.render` instead, which has the correct nginx configuration for Render.
 
 ### "failed to read dockerfile: read /home/user/.local/tmp/buildkit-mount591085182/src: is a directory"
 
