@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
     container_name: tic-tac-toe-backend
     ports:
       - "3001:3001"
@@ -13,7 +15,9 @@ services:
       - tic-tac-toe-network
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
     container_name: tic-tac-toe-frontend
     ports:
       - "80:80"
